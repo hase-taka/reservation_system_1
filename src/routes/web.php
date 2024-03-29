@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/thanks', [AuthController::class, 'thanks'])->name('thanks');
+
+// Route::group(['middleware' => 'auth'], function() {
+
+Route::get('/done', [AuthController::class,'done']);
+
+Route::get('/',[ReservationController::class,'index'])->name('restaurant-list');
+Route::get('/restaurants/{id}', [ReservationController::class, 'show'])->name('restaurant-detail');
+Route::post('/restaurant/search', [ReservationController::class, 'search'])->name('restaurant-search');
+
+Route::post('/favorites/toggle/{restaurant}', [ReservationController::class, 'toggle'])->name('favorites.toggle');
+
+
+
+// });
